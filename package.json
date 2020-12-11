@@ -1,0 +1,39 @@
+{
+  "name": "@mo36924/typescript-patch",
+  "version": "4.1.2",
+  "description": "",
+  "bin": {
+    "tsc": "bin/tsc",
+    "tsserver": "bin/tsserver"
+  },
+  "main": "./lib/typescript.js",
+  "typings": "./lib/typescript.d.ts",
+  "scripts": {
+    "build": "run-s build:*",
+    "build:patch": "patch-package",
+    "build:copy": "node index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mo36924/typescript-patch.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Microsoft Corp."
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mo36924/typescript-patch/issues"
+  },
+  "homepage": "https://github.com/mo36924/typescript-patch#readme",
+  "devDependencies": {
+    "fs-extra": "^9.0.1",
+    "npm-run-all": "^4.1.5",
+    "patch-package": "^6.2.2",
+    "typescript": "^4.1.2"
+  }
+}
