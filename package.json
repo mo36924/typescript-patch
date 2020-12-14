@@ -1,6 +1,6 @@
 {
   "name": "@mo36924/typescript-patch",
-  "version": "4.1.2",
+  "version": "4.1.3",
   "description": "",
   "bin": {
     "tsc": "bin/tsc",
@@ -33,7 +33,9 @@
   "devDependencies": {
     "fs-extra": "^9.0.1",
     "npm-run-all": "^4.1.5",
-    "patch-package": "^6.2.2",
-    "typescript": "^4.1.2"
+    "patch-package": "^6.2.2"
+  },
+  "dependencies": {
+    "typescript": "^4.1.3"
   }
 }

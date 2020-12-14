@@ -1,0 +1,188 @@
+diff --git a/node_modules/typescript/lib/tsc.js b/node_modules/typescript/lib/tsc.js
+index aa044c8..a3da91e 100644
+--- a/node_modules/typescript/lib/tsc.js
++++ b/node_modules/typescript/lib/tsc.js
+@@ -35393,6 +35393,13 @@ var ts;
+         var requireSymbol = createSymbol(4, "require");
+         var apparentArgumentCount;
+         var checker = {
++            createTupleType: createTupleType,
++            getLiteralType: getLiteralType,
++            getIntersectionType: getIntersectionType,
++            createSyntheticExpression: createSyntheticExpression,
++            getGlobalType: getGlobalType,
++            createSymbolTable: ts.createSymbolTable,
++            emptyArray: ts.emptyArray,
+             getNodeCount: function () { return ts.sum(host.getSourceFiles(), "nodeCount"); },
+             getIdentifierCount: function () { return ts.sum(host.getSourceFiles(), "identifierCount"); },
+             getSymbolCount: function () { return ts.sum(host.getSourceFiles(), "symbolCount") + symbolCount; },
+@@ -56667,7 +56674,13 @@ var ts;
+             return result;
+         }
+         function getEffectiveCallArguments(node) {
+-            if (node.kind === 205) {
++            if (node.kind === 205 /* TaggedTemplateExpression */) {
++                if(ts.taggedTemplateExpressionHook){
++                    var args = ts.taggedTemplateExpressionHook(node, checker);
++                    if(args){
++                        return args;
++                    }
++                }
+                 var template = node.template;
+                 var args_3 = [createSyntheticExpression(template, getGlobalTemplateStringsArrayType())];
+                 if (template.kind === 218) {
+diff --git a/node_modules/typescript/lib/tsserver.js b/node_modules/typescript/lib/tsserver.js
+index d9208c6..a794403 100644
+--- a/node_modules/typescript/lib/tsserver.js
++++ b/node_modules/typescript/lib/tsserver.js
+@@ -43465,6 +43465,13 @@ var ts;
+         // extra cost of calling `getParseTreeNode` when calling these functions from inside the
+         // checker.
+         var checker = {
++            createTupleType: createTupleType,
++            getLiteralType: getLiteralType,
++            getIntersectionType: getIntersectionType,
++            createSyntheticExpression: createSyntheticExpression,
++            getGlobalType: getGlobalType,
++            createSymbolTable: ts.createSymbolTable,
++            emptyArray: ts.emptyArray,
+             getNodeCount: function () { return ts.sum(host.getSourceFiles(), "nodeCount"); },
+             getIdentifierCount: function () { return ts.sum(host.getSourceFiles(), "identifierCount"); },
+             getSymbolCount: function () { return ts.sum(host.getSourceFiles(), "symbolCount") + symbolCount; },
+@@ -67945,6 +67952,12 @@ var ts;
+          */
+         function getEffectiveCallArguments(node) {
+             if (node.kind === 205 /* TaggedTemplateExpression */) {
++                if(ts.taggedTemplateExpressionHook){
++                    var args = ts.taggedTemplateExpressionHook(node, checker);
++                    if(args){
++                        return args;
++                    }
++                }
+                 var template = node.template;
+                 var args_3 = [createSyntheticExpression(template, getGlobalTemplateStringsArrayType())];
+                 if (template.kind === 218 /* TemplateExpression */) {
+diff --git a/node_modules/typescript/lib/tsserverlibrary.js b/node_modules/typescript/lib/tsserverlibrary.js
+index a74476c..3b9b91e 100644
+--- a/node_modules/typescript/lib/tsserverlibrary.js
++++ b/node_modules/typescript/lib/tsserverlibrary.js
+@@ -43659,6 +43659,13 @@ var ts;
+         // extra cost of calling `getParseTreeNode` when calling these functions from inside the
+         // checker.
+         var checker = {
++            createTupleType: createTupleType,
++            getLiteralType: getLiteralType,
++            getIntersectionType: getIntersectionType,
++            createSyntheticExpression: createSyntheticExpression,
++            getGlobalType: getGlobalType,
++            createSymbolTable: ts.createSymbolTable,
++            emptyArray: ts.emptyArray,
+             getNodeCount: function () { return ts.sum(host.getSourceFiles(), "nodeCount"); },
+             getIdentifierCount: function () { return ts.sum(host.getSourceFiles(), "identifierCount"); },
+             getSymbolCount: function () { return ts.sum(host.getSourceFiles(), "symbolCount") + symbolCount; },
+@@ -68139,6 +68146,12 @@ var ts;
+          */
+         function getEffectiveCallArguments(node) {
+             if (node.kind === 205 /* TaggedTemplateExpression */) {
++                if(ts.taggedTemplateExpressionHook){
++                    var args = ts.taggedTemplateExpressionHook(node, checker);
++                    if(args){
++                        return args;
++                    }
++                }
+                 var template = node.template;
+                 var args_3 = [createSyntheticExpression(template, getGlobalTemplateStringsArrayType())];
+                 if (template.kind === 218 /* TemplateExpression */) {
+diff --git a/node_modules/typescript/lib/typescript.js b/node_modules/typescript/lib/typescript.js
+index ea89c6a..c4eaf9c 100644
+--- a/node_modules/typescript/lib/typescript.js
++++ b/node_modules/typescript/lib/typescript.js
+@@ -43659,6 +43659,13 @@ var ts;
+         // extra cost of calling `getParseTreeNode` when calling these functions from inside the
+         // checker.
+         var checker = {
++            createTupleType: createTupleType,
++            getLiteralType: getLiteralType,
++            getIntersectionType: getIntersectionType,
++            createSyntheticExpression: createSyntheticExpression,
++            getGlobalType: getGlobalType,
++            createSymbolTable: ts.createSymbolTable,
++            emptyArray: ts.emptyArray,
+             getNodeCount: function () { return ts.sum(host.getSourceFiles(), "nodeCount"); },
+             getIdentifierCount: function () { return ts.sum(host.getSourceFiles(), "identifierCount"); },
+             getSymbolCount: function () { return ts.sum(host.getSourceFiles(), "symbolCount") + symbolCount; },
+@@ -68139,6 +68146,12 @@ var ts;
+          */
+         function getEffectiveCallArguments(node) {
+             if (node.kind === 205 /* TaggedTemplateExpression */) {
++                if(ts.taggedTemplateExpressionHook){
++                    var args = ts.taggedTemplateExpressionHook(node, checker);
++                    if(args){
++                        return args;
++                    }
++                }
+                 var template = node.template;
+                 var args_3 = [createSyntheticExpression(template, getGlobalTemplateStringsArrayType())];
+                 if (template.kind === 218 /* TemplateExpression */) {
+diff --git a/node_modules/typescript/lib/typescriptServices.js b/node_modules/typescript/lib/typescriptServices.js
+index 4e9013c..61f098a 100644
+--- a/node_modules/typescript/lib/typescriptServices.js
++++ b/node_modules/typescript/lib/typescriptServices.js
+@@ -43659,6 +43659,13 @@ var ts;
+         // extra cost of calling `getParseTreeNode` when calling these functions from inside the
+         // checker.
+         var checker = {
++            createTupleType: createTupleType,
++            getLiteralType: getLiteralType,
++            getIntersectionType: getIntersectionType,
++            createSyntheticExpression: createSyntheticExpression,
++            getGlobalType: getGlobalType,
++            createSymbolTable: ts.createSymbolTable,
++            emptyArray: ts.emptyArray,
+             getNodeCount: function () { return ts.sum(host.getSourceFiles(), "nodeCount"); },
+             getIdentifierCount: function () { return ts.sum(host.getSourceFiles(), "identifierCount"); },
+             getSymbolCount: function () { return ts.sum(host.getSourceFiles(), "symbolCount") + symbolCount; },
+@@ -68139,6 +68146,12 @@ var ts;
+          */
+         function getEffectiveCallArguments(node) {
+             if (node.kind === 205 /* TaggedTemplateExpression */) {
++                if(ts.taggedTemplateExpressionHook){
++                    var args = ts.taggedTemplateExpressionHook(node, checker);
++                    if(args){
++                        return args;
++                    }
++                }
+                 var template = node.template;
+                 var args_3 = [createSyntheticExpression(template, getGlobalTemplateStringsArrayType())];
+                 if (template.kind === 218 /* TemplateExpression */) {
+diff --git a/node_modules/typescript/lib/typingsInstaller.js b/node_modules/typescript/lib/typingsInstaller.js
+index fbb900b..040984d 100644
+--- a/node_modules/typescript/lib/typingsInstaller.js
++++ b/node_modules/typescript/lib/typingsInstaller.js
+@@ -43454,6 +43454,13 @@ var ts;
+         // extra cost of calling `getParseTreeNode` when calling these functions from inside the
+         // checker.
+         var checker = {
++            createTupleType: createTupleType,
++            getLiteralType: getLiteralType,
++            getIntersectionType: getIntersectionType,
++            createSyntheticExpression: createSyntheticExpression,
++            getGlobalType: getGlobalType,
++            createSymbolTable: ts.createSymbolTable,
++            emptyArray: ts.emptyArray,
+             getNodeCount: function () { return ts.sum(host.getSourceFiles(), "nodeCount"); },
+             getIdentifierCount: function () { return ts.sum(host.getSourceFiles(), "identifierCount"); },
+             getSymbolCount: function () { return ts.sum(host.getSourceFiles(), "symbolCount") + symbolCount; },
+@@ -67934,6 +67941,12 @@ var ts;
+          */
+         function getEffectiveCallArguments(node) {
+             if (node.kind === 205 /* TaggedTemplateExpression */) {
++                if(ts.taggedTemplateExpressionHook){
++                    var args = ts.taggedTemplateExpressionHook(node, checker);
++                    if(args){
++                        return args;
++                    }
++                }
+                 var template = node.template;
+                 var args_3 = [createSyntheticExpression(template, getGlobalTemplateStringsArrayType())];
+                 if (template.kind === 218 /* TemplateExpression */) {
